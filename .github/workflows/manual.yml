@@ -41,10 +41,10 @@ jobs:
       - name: copying dis to folder
         run: |      
             dir
-            Remove-Item -Path "C:\testdemo\" -Recurse -Force
+            Remove-Item -Path "C:\testdemo" -Recurse -Force
             dir
-            Copy-Item -Path "dist/achieve-ui/browser/*" -Destination "C:/testdemo" -Recurse -Force
-            Copy-Item -Path "dist/achieve-ui/3rdpartylicenses.txt" -Destination "C:/testdemo" -Force
+            # Copy-Item -Path "dist/achieve-ui/browser/*" -Destination "C:/testdemo" -Recurse -Force
+            # Copy-Item -Path "dist/achieve-ui/3rdpartylicenses.txt" -Destination "C:/testdemo" -Force
 
 
 
