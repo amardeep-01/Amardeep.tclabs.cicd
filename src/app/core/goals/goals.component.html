@@ -1,0 +1,37 @@
+<div class="goal-container">
+    <div class="row row-filter">
+        <div class="util-container">
+            <div class="col-md-6 ">
+                <input type="text" style="background-image: url(./assets/search.svg)" class="form-control search"  id="search_goal" placeholder="Search">
+            </div>
+            <div class="col-md-4 filter-goal ">
+                    <button type="button" class="btn-filter">
+                        <i class="bi bi-funnel"></i>
+                    </button>
+            </div>
+            <div class="col-md-2 add-button">
+                <button type="button" class="btn btn-primary" (click)="addGoal()">
+                    <i class="bi bi-plus-square"></i> Add Goal
+                </button>
+            </div>
+        </div>
+    </div>
+
+        @if(goalListPresent){
+    <div class="row">
+        <app-goals-list [goals]="goals"></app-goals-list>
+           
+    </div>
+        }
+
+    @if(!goalListPresent){
+    <div class="row row-margin">
+        <div class="no-goal-icon">
+            <i class="bi bi-folder-fill"></i>
+        </div>
+        <div class="no-goal-msg">
+            No Goal found
+        </div>
+    </div>
+    }
+</div>

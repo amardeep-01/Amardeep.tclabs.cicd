@@ -1,0 +1,46 @@
+.container {
+    padding: 20px;
+    height: 85%;
+    box-shadow: 0 5px 10px 0 #f1f2fa;
+    background-color: #f8f9fa;
+}
+
+.goal-class{
+    margin-top: 5px;
+    h3{
+        color: #666;
+        font-size: 24px;
+    }
+  }
+
+.back-btn{
+    img{
+        width: 30px;
+        height: 29.3px;
+    }
+}
+
+.input-areas{
+    background-color: var(--bs-card-cap-bg);
+    border-width: 0cap;
+}
+
+.goal-summary{
+    opacity: 50%;
+    height: 50px;
+    flex-grow: 0;
+    margin: 15px 10px 20px;
+   
+}
+
+.goal-description{
+    opacity: 50%;
+    height: 80px;
+    flex-grow: 0;
+    margin: 15px 10px 20px;
+
+}
+
+.due-date{
+    margin: 05px 0px 5px;
+}

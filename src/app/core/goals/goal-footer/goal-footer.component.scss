@@ -1,0 +1,29 @@
+div{
+    .btn-primary{
+        background-color: #ffcb56;
+        border-color: #ffcb56;
+        color: #442400;
+    }
+   
+} 
+
+button {
+    height: 38px;
+    flex-grow: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    border-radius: 4px;
+    border: solid 1px #6c757d;
+  }
+
+
+.row-bor{
+  width: 100%;
+  justify-content: flex-end;
+  align-items: flex-end;
+  position: absolute;
+    bottom: 5%;
+    right: 5%;
+}

@@ -1,0 +1,29 @@
+.header-container {
+    padding: 0 2rem;
+    height: 60px;
+
+    .logo {
+        background-color: #FFCB56;
+    }
+
+    .title-container {
+        margin-left: 4.6rem;
+
+        .title {
+            color: #2A343E;
+            cursor: pointer;
+            margin-bottom: 0;
+        }
+    }
+
+
+    .dropdown-toggle::after {
+        display: none;
+    }
+
+    .tip-content {
+        font-size: 0.75rem;
+        width: 15rem;
+        text-align: start;
+    }
+}

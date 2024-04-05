@@ -1,0 +1,15 @@
+
+/* Importing Bootstrap SCSS file. */
+@import 'bootstrap/scss/bootstrap';
+html, body { height: 100%; font-family: 'Rubik', sans-serif;   }
+.hide {
+    display: none;
+}
+
+.tooltip-inner {
+    background-color: white !important;
+    color: #212529;
+    border: solid 1px #979797;
+    border-radius: 3px;
+    --bs-tooltip-max-width: fit-content;
+}

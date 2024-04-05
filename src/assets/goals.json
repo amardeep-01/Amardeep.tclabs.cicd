@@ -1,0 +1,17 @@
+[
+  {
+    "goalHeader": "Learn Angular",
+    "goalContent": "Complete the Angular tutorial on the official documentation website.",
+    "goalDate": "17 Jun 2024"
+  },
+  {
+    "goalHeader": "Finish Personal Project",
+    "goalContent": "Complete the remaining features of my personal project.",
+    "goalDate": "26 Jun 2024"
+  },
+  {
+    "goalHeader": "Attend Conference",
+    "goalContent": "Attend the Tech Summit conference in Work.",
+    "goalDate": "30 Jun 2024"
+  }
+]

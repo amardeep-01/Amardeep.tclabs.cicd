@@ -1,0 +1,67 @@
+<div class="card container ">
+
+  <div class="card-header">
+    <div class="row">
+      <div class="col-auto">
+        <div class="back-btn">
+          
+          <button class="btn" (click)="backToGoal()">
+            <img src="assets/back-arrow.svg" alt="back">
+          </button>
+          
+        </div>
+      </div>
+
+      <div class="col-auto">
+        <div class="goal-class"><h3>Create-Your-Goal</h3></div>
+      </div>
+
+    </div>
+  </div>
+  <div class="card-body">
+   
+
+    <div class="row">
+      <input type="text" placeholder="Write your goal summary" class="goal-summary input-areas" [(ngModel)]="summary" />
+    </div>
+
+    <div class="row">
+      <input type="text" placeholder="Write your goal description"
+        class="input-areas goal-description" [(ngModel)]="description"/>
+    </div>
+
+    <div class="row due-date-row">
+
+      <div class="col-auto">
+        
+        <form class="row row-cols-sm-auto">
+          <div class="col-12">
+            <div class="input-group">
+              <input
+                class="form-control"
+                placeholder="DD-MM-YYYY"
+                name="dp"
+                [(ngModel)]="model"
+                ngbDatepicker
+                #d="ngbDatepicker"
+              />
+              <button class="btn btn-outline-secondary bi bi-calendar3" (click)="d.toggle()" type="button"></button>
+            </div>
+          </div>
+        </form>
+
+      </div>
+      <div class="col-auto">
+        <div class="due-date">
+          Due date
+        </div>
+      </div>
+
+    </div>
+
+    <app-goal-footer (submit)="onSubmit()"></app-goal-footer>
+    
+  </div>
+
+
+</div>

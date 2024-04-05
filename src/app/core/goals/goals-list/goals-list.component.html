@@ -1,0 +1,38 @@
+@for ( goal of goals; track goal) {
+    <div class="container goals-list">
+        <div class="row ">
+            <div class="col-md-12 header">
+                <h5>{{ goal.title }}</h5>
+                <div>
+                    <span>Published</span>
+                        <div ngbDropdown ngbDropdownToggle class="d-inline-block hide-arrow">
+                        <i class="bi bi-three-dots-vertical" (click)="handleOptionsClick()"></i>
+                            <div ngbDropdownMenu aria-labelledby="dropdownOptions" class="dropdown-menu-left">
+                                <div class="dropdown-item">
+                                    <i class="bi bi-pencil-square"></i> <button ngbDropdownItem>Edit</button>
+                                </div>
+                                <div class="dropdown-item">
+                                    <i class="bi bi-trash3"></i> <button ngbDropdownItem>Delete</button>
+                                </div>
+                                <div class="dropdown-item">
+                                    <i class="bi bi-check-lg"></i> <button ngbDropdownItem>Publish</button>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+            <div class="col-md-12 goal-list">
+            <p>{{ goal.description }} 
+                <span class="view-goal " (click)="viewGoal()">
+                        View Full
+                </span>
+            </p>
+            </div>
+            <div class="col-md-4 goal-date">
+                <i class="bi bi-calendar2"></i>
+                <span class="due-date">{{ goal.createdOn | date }}</span>
+                <span class="due-message">Due Date</span>
+            </div>
+        </div>    
+    </div>
+}

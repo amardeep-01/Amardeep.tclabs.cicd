@@ -1,0 +1,19 @@
+<div [ngClass]="openNavBar?'open-nav-container':'close-nav-container'" class="nav-container d-flex flex-column h-100">
+    <span class="arrow rounded-circle my-2" (click)="handleNavBar()">
+        <i class="bi bi-chevron-right"></i>
+    </span>
+    <ul class="nav nav-pills flex-column">
+        @for( items of sidebarItems; track $index){
+        <li>
+            <a class="nav-element d-flex justify-content-between align-items-center p-3 my-1 rounded-start"
+                routerLink={{items.route}} routerLinkActive="active">
+                <div class="d-inline">
+                    <img [src]="items.imageUrl" [alt]='items.name + " icon"'>
+                    <span>{{items.name}}</span>
+                </div>
+                <div class="selected d-inline rounded-start h-100"></div>
+            </a>
+        </li>}
+
+    </ul>
+</div>

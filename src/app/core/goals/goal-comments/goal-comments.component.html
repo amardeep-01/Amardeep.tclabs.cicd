@@ -1,0 +1,21 @@
+<div>
+    @for (comment of GoalCommentsList; track $index){
+    <div class="d-flex">
+        <i class="bi bi-person-circle fs-2"></i>
+        <div class="d-flex mx-3 flex-column">
+            <div class="my-2">
+                <h6 class="d-inline comment-user">{{comment.commentBy}}</h6>
+                <span class="updated-date m-3">{{comment.createdOn}}</span>
+            </div>
+            <div>
+                <p class="comments">{{comment.description}}</p>
+            </div>
+        </div>
+    </div>
+    }
+    <div class="d-flex comment-area">
+        <i class="bi bi-person-circle fs-2"></i>
+        <textarea class="form-control  mx-3" name="" id="" cols="50" row="50" [(ngModel)]="newComment"></textarea>
+        <button type="button" class="btn btn-primary my-3" (click)="addComment()">Comment</button>
+    </div>
+</div>

@@ -1,0 +1,36 @@
+<ng-template #content let-offcanvas>
+
+    <div class="offcanvas-header d-flex justify-content-between px-4 align-items-start mx-2">
+
+        <img class=" bi bi-grid-3x3-gap-fill my-2" src="assets/9_dots.svg" alt="no" id="offcanvas-basic-title" aria-label="Close"
+        (click)="offcanvas.dismiss()">
+
+        <h2 aria-label="Close" >
+            <i class="bi bi-arrow-left mr-1" (click)="offcanvas.dismiss()">
+            </i><span class="fw-lighter offcanvas-title" (click)="navigateTo()">PowerHCM </span>
+        </h2>
+    </div>
+
+    <div class="offcanvas-body pt-0 px-4">
+        <hr class="m-0 ">
+        <div class="flex-column pt-4">
+            <h2 class="fw-lighter">Subscribed Apps</h2>
+            <div class="row">
+
+                @for(app of appsDetails; track app) {
+                    <div class="col-6 mt-4" (click)="navigateTo(app.id)">
+                        <div class="card text-center h-100">
+                            <div class="card-body">
+                                <i class="bi bi-app-indicator d-block fs-2"></i>
+                                {{app.appName}}
+                            </div>
+                        </div>
+                    </div>
+                }
+                
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<div (click)="open(content)"><img class=" bi bi-grid-3x3-gap-fill fs-2" src="assets/9_dots.svg" alt="no"></div>

@@ -1,0 +1,106 @@
+.nav-container {
+    background: #2A343E;
+    transition: transform 0.2s ease;
+    white-space: nowrap;
+
+    .arrow {
+        margin-left: calc(100% - 16px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        -webkit-text-stroke: 2px;
+        font-size: small;
+        cursor: pointer;
+        height: 34px;
+        width: 32px;
+        background-color: #fff;
+        box-shadow: 0 0 4px #0000004d;
+        color: #442400;
+        z-index: 1;
+    }
+
+    .nav {
+        width: inherit;
+        height: inherit;
+        background: #2A343E;
+
+        .nav-element {
+            position: relative;
+            overflow: hidden;
+
+            &:last-child {
+                border-bottom: none;
+            }
+
+            &:hover,
+            &.active {
+                background-color: #495A6B;
+                cursor: pointer;
+
+                .selected {
+                    position: absolute;
+                    width: 5px;
+                    right: 0px;
+                    background: #FFCB56;
+                }
+            }
+        }
+    }
+}
+
+.open-nav-container {
+    min-width: 17rem;
+    transition-property: all;
+    transform: translateX(0);
+
+    h2 {
+        color: #fff;
+    }
+
+    .arrow {
+        background-position: 100%;
+        transform: rotate(180deg);
+    }
+
+    .nav {
+        img {
+            margin-right: 10px;
+        }
+
+        .nav-element {
+            margin-left: 0.5rem;
+            text-decoration: none;
+            color: #fff;
+        }
+    }
+}
+
+.close-nav-container {
+    min-width: 4rem;
+    transition-property: all;
+    transform: translateX(0%);
+
+    .sidebar-title {
+        pointer-events: none;
+        visibility: hidden;
+        cursor: default;
+    }
+
+    .nav {
+        // align-items: center;
+        margin: 0px 10px 10px 10px;
+
+        .nav-element {
+            user-select: none;
+            border-radius: 5px;
+
+            span {
+                display: none;
+            }
+
+            .selected {
+                visibility: hidden;
+            }
+        }
+    }
+}
