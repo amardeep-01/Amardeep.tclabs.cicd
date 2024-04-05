@@ -28,6 +28,7 @@ jobs:
       - name: Install Angular CLI
         run: |
            npm i -f
+           npm install -g @angular/cli
            ng build 
            pwd
            dir
