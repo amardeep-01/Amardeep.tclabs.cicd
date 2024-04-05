@@ -28,8 +28,6 @@ jobs:
         run: |
            npm i -f
            npm install -g @angular/cli
-         
-            dir
            # # Remove-Item -Path "C:\testdemo" -Recurse -Force
            # Copy-Item -Path "dist/achieve-ui/browser/*" -Destination "C:/testdemo" -Recurse -Force
            # Copy-Item -Path "dist/achieve-ui/3rdpartylicenses.txt" -Destination "C:/testdemo" -Force
@@ -40,13 +38,10 @@ jobs:
 
       - name: copying dis to folder
         run: |      
-            dir
             # Remove-Item -Path "C:\testdemo" -Recurse -Force
             Get-ChildItem -Path "C:\testdemo" | Remove-Item -Recurse -Force
-
-            dir
-            # Copy-Item -Path "dist/achieve-ui/browser/*" -Destination "C:/testdemo" -Recurse -Force
-            # Copy-Item -Path "dist/achieve-ui/3rdpartylicenses.txt" -Destination "C:/testdemo" -Force
+            Copy-Item -Path "dist/achieve-ui/browser/*" -Destination "C:/testdemo" -Recurse -Force
+            Copy-Item -Path "dist/achieve-ui/3rdpartylicenses.txt" -Destination "C:/testdemo" -Force
 
 
 
