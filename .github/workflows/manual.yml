@@ -28,8 +28,27 @@ jobs:
         run: |
            npm i -f
            npm install -g @angular/cli
-           ng build
+         
            dir
            # Remove-Item -Path "C:\testdemo" -Recurse -Force
            Copy-Item -Path "dist/achieve-ui/browser/*" -Destination "C:/testdemo" -Recurse -Force
            Copy-Item -Path "dist/achieve-ui/3rdpartylicenses.txt" -Destination "C:/testdemo" -Force
+       
+      - name: Building project
+        run: |
+            ng build
+
+      - name: copying dis to folder
+        run: |      
+            dir
+            Remove-Item -Path "C:\testdemo\" -Recurse -Force
+            dir
+            Copy-Item -Path "dist/achieve-ui/browser/*" -Destination "C:/testdemo" -Recurse -Force
+            Copy-Item -Path "dist/achieve-ui/3rdpartylicenses.txt" -Destination "C:/testdemo" -Force
+
+
+
+
+
+
+        
