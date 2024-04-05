@@ -18,7 +18,6 @@ jobs:
       - name: testing changes check
         run: |
           dir
-          $env:path -split ';' | Select-String nodejs
 
       - name: Install dependencies
         run: node -v
@@ -29,6 +28,5 @@ jobs:
         run: |
            npm i -f
            npm install -g @angular/cli
-           ng build 
-           pwd
+           ng build
            dir
