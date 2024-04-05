@@ -30,8 +30,6 @@ jobs:
            npm install -g @angular/cli
            ng build
            dir
-           Remove-Item -Path "C:\testdemo" -Recurse -Force
-           # Copy-Item -Path "dist/achieve-ui/browser/assets/*" -Destination "C:/testdemo" -Recurse -Force
-           # Copy-Item -Path "dist/achieve-ui/browser/media/*" -Destination "C:/testdemo" -Force
-           # Copy-Item -Path "dist/achieve-ui/browser/*" -Destination "C:/testdemo" -Force
-           # Copy-Item -Path "dist/achieve-ui/3rdpartylicenses.txt" -Destination "C:/testdemo" -Force
+           # Remove-Item -Path "C:\testdemo" -Recurse -Force
+           Copy-Item -Path "dist/achieve-ui/browser/*" -Destination "C:/testdemo" -Recurse -Force
+           Copy-Item -Path "dist/achieve-ui/3rdpartylicenses.txt" -Destination "C:/testdemo" -Force
