@@ -36,7 +36,7 @@ jobs:
         run: |
             ng build
 
-      - name: copying fro dist to IIS folder
+      - name: copying from dist to IIS folder
         run: |      
             # Remove-Item -Path "C:\testdemo" -Recurse -Force 
             Get-ChildItem -Path "C:\testdemo" | Remove-Item -Recurse -Force
