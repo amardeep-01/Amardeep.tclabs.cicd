@@ -35,41 +35,41 @@ jobs:
       - name: Determine Environment
         id: env
         run: |
-          # $env:TAG="${{ github.ref }}"
-          $env:TAG = "refs/tags/developer"
+          # # $env:TAG="${{ github.ref }}"
+          # $env:TAG = "refs/tags/developer"
 
-          if ($env:TAG -like "refs/tags/dev*") {
-            Write-Output "::set-output name=env::DEV"
-          } elseif ($env:TAG -like "refs/tags/uat*") {
-            Write-Output "::set-output name=env::UAT"
-          } elseif ($env:TAG -like "refs/tags/prod*") {
-            Write-Output "::set-output name=env::PROD"
-          } else {
-            Write-Output "Invalid tag format"
-            exit 1
-          }
+          # if ($env:TAG -like "refs/tags/dev*") {
+          #   Write-Output "::set-output name=env::DEV"
+          # } elseif ($env:TAG -like "refs/tags/uat*") {
+          #   Write-Output "::set-output name=env::UAT"
+          # } elseif ($env:TAG -like "refs/tags/prod*") {
+          #   Write-Output "::set-output name=env::PROD"
+          # } else {
+          #   Write-Output "Invalid tag format"
+          #   exit 1
+          # }
+          ENV="${{ steps.env.outputs.env }}"
 
+           if ($ENV -eq "DEV") {
 
-
-      - name: Deploy
-        run: |
-          ENV=${{ steps.env.outputs.env }}
-
-          if ( "$ENV" == "DEV" ); then
-            # Deployment to DEV
             Get-ChildItem -Path "D:\Achieve-ui-cicd" | Remove-Item -Recurse -Force
-            Copy-Item -Path "dist/achieve-ui/browser/*" -Destination "D:\Achieve-ui-cicd" -Recurse -Force
-          elif ( "$ENV" == "UAT" ); then
-            # Deployment to UAT
+              Copy-Item -Path "dist/achieve-ui/browser/*" -Destination "D:\Achieve-ui-cicd" -Recurse -Force
+             } elseif ($ENV -eq "UAT") {
+ 
             Get-ChildItem -Path "D:\Achieve-ui-cicd" | Remove-Item -Recurse -Force
-            Copy-Item -Path "dist/achieve-ui/browser/*" -Destination "D:\Achieve-ui-cicd" -Recurse -Force
-            Copy-Item -Path "dist/achieve-ui/3rdpartylicenses.txt" -Destination "D:\Achieve-ui-cicd" -Force 
-          elif ( "$ENV" == "PROD" ); then
-            # Deployment to PROD
-            Get-ChildItem -Path "D:\Achieve-ui-cicd" | Remove-Item -Recurse -Force
-            Copy-Item -Path "dist/achieve-ui/browser/*" -Destination "D:\Achieve-ui-cicd" -Recurse -Force
-            Copy-Item -Path "dist/achieve-ui/3rdpartylicenses.txt" -Destination "D:\Achieve-ui-cicd" -Force 
-          else
-            echo "Invalid environment"
-            exit 1
-          fi
+             Copy-Item -Path "dist/achieve-ui/browser/*" -Destination "D:\Achieve-ui-cicd" -Recurse -Force
+              Copy-Item -Path "dist/achieve-ui/3rdpartylicenses.txt" -Destination "D:\Achieve-ui-cicd" -Force 
+              } elseif ($ENV -eq "PROD") {
+  
+                Get-ChildItem -Path "D:\Achieve-ui-cicd" | Remove-Item -Recurse -Force
+              Copy-Item -Path "dist/achieve-ui/browser/*" -Destination "D:\Achieve-ui-cicd" -Recurse -Force
+              Copy-Item -Path "dist/achieve-ui/3rdpartylicenses.txt" -Destination "D:\Achieve-ui-cicd" -Force 
+              } else {
+                Write-Output "Invalid environment"
+               exit 1
+                  }
+
+
+
+
+   
