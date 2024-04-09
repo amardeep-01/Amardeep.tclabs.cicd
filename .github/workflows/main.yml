@@ -2,25 +2,20 @@ name: dynamic-submission-web-v1
 
 on:
   push:
-    branches: [ test/ci_cd]
-  pull_request:
-    branches: [ test/ci_cd] 
+    tags:
+      - 'dev*'
+      - 'uat*'
+      - 'prod*'
   workflow_dispatch:
     inputs:
-      environment:
+      environment: 
         type: choice
         description: Select Environment
         options:
-        - DEV
-        - QA
-        - UAT
-     
-  create:
-    tags:
-      - '*.*'
+          - DEV
+          - UAT
+          - PROD
 
-
-     
 jobs:  
   build:
     name: Build and Deploy Angular Project
@@ -36,33 +31,40 @@ jobs:
       - name: Building project
         run: ng build
 
-      
-      - name: Deploy to DEV
-        if: ${{ github.event.inputs.environment == 'dev'}}
+      - name: Determine Environment
+        id: env
         run: |
-          Get-ChildItem -Path "D:\Achieve-ui-cicd" | Remove-Item -Recurse -Force
-          Copy-Item -Path "dist/achieve-ui/browser/*" -Destination "D:\Achieve-ui-cicd" -Recurse -Force
-          # Copy-Item -Path "dist/achieve-ui/3rdpartylicenses.txt" -Destination "D:\Achieve-ui-cicd" -Force 
+          TAG="${{ github.ref }}"
+          if [[ $TAG == refs/tags/dev* ]]; then
+            echo "::set-output name=env::DEV"
+          elif [[ $TAG == refs/tags/uat* ]]; then
+            echo "::set-output name=env::UAT"
+          elif [[ $TAG == refs/tags/prod* ]]; then
+            echo "::set-output name=env::PROD"
+          else
+            echo "Invalid tag format"
+            exit 1
+          fi
 
-      - name: Deploy to QA
-        if: ${{ github.event.inputs.environment == 'QA'}}
+      - name: Deploy
         run: |
-          Get-ChildItem -Path "D:\Achieve-ui-cicd" | Remove-Item -Recurse -Force
-          Copy-Item -Path "dist/achieve-ui/browser/*" -Destination "D:\Achieve-ui-cicd" -Recurse -Force
-          Copy-Item -Path "dist/achieve-ui/3rdpartylicenses.txt" -Destination "D:\Achieve-ui-cicd" -Force 
+          ENV=${{ steps.env.outputs.env }}
 
-      - name: Deploy to UAT
-        if: ${{ github.event.inputs.environment == 'UAT'}}
-        run: |
-          Get-ChildItem -Path "D:\Achieve-ui-cicd" | Remove-Item -Recurse -Force
-          Copy-Item -Path "dist/achieve-ui/browser/*" -Destination "D:\Achieve-ui-cicd" -Recurse -Force
-          Copy-Item -Path "dist/achieve-ui/3rdpartylicenses.txt" -Destination "D:\Achieve-ui-cicd" -Force 
-
-
-      # - name: Copying from dist to IIS folder
-      #   run: |      
-      #     Get-ChildItem -Path "D:\Achieve-ui-cicd" | Remove-Item -Recurse -Force
-      #     Copy-Item -Path "dist/achieve-ui/browser/*" -Destination "D:\Achieve-ui-cicd" -Recurse -Force
-      #     Copy-Item -Path "dist/achieve-ui/3rdpartylicenses.txt" -Destination "D:\Achieve-ui-cicd" -Force 
-
-      
+          if [ "$ENV" == "DEV" ]; then
+            # Deployment to DEV
+            Get-ChildItem -Path "D:\Achieve-ui-cicd" | Remove-Item -Recurse -Force
+            Copy-Item -Path "dist/achieve-ui/browser/*" -Destination "D:\Achieve-ui-cicd" -Recurse -Force
+          elif [ "$ENV" == "UAT" ]; then
+            # Deployment to UAT
+            Get-ChildItem -Path "D:\Achieve-ui-cicd" | Remove-Item -Recurse -Force
+            Copy-Item -Path "dist/achieve-ui/browser/*" -Destination "D:\Achieve-ui-cicd" -Recurse -Force
+            Copy-Item -Path "dist/achieve-ui/3rdpartylicenses.txt" -Destination "D:\Achieve-ui-cicd" -Force 
+          elif [ "$ENV" == "PROD" ]; then
+            # Deployment to PROD
+            Get-ChildItem -Path "D:\Achieve-ui-cicd" | Remove-Item -Recurse -Force
+            Copy-Item -Path "dist/achieve-ui/browser/*" -Destination "D:\Achieve-ui-cicd" -Recurse -Force
+            Copy-Item -Path "dist/achieve-ui/3rdpartylicenses.txt" -Destination "D:\Achieve-ui-cicd" -Force 
+          else
+            echo "Invalid environment"
+            exit 1
+          fi
