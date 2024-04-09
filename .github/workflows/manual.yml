@@ -2,9 +2,9 @@ name: achieve-ui-cicd
 
 on:
   push:
-    branches: [development, dev, check_branch, test/ci_cd] 
+    # branches: [development, dev, check_branch, test/ci_cd] 
   pull_request:
-    branches: [development, dev, check_branch, test/ci_cd] 
+    # branches: [development, dev, check_branch, test/ci_cd] 
 
 jobs:  
   build:
