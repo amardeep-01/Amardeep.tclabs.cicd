@@ -55,16 +55,16 @@ jobs:
         run: |
           ENV=${{ steps.env.outputs.env }}
 
-          if [ "$ENV" == "DEV" ]; then
+          if ( "$ENV" == "DEV" ); then
             # Deployment to DEV
             Get-ChildItem -Path "D:\Achieve-ui-cicd" | Remove-Item -Recurse -Force
             Copy-Item -Path "dist/achieve-ui/browser/*" -Destination "D:\Achieve-ui-cicd" -Recurse -Force
-          elif [ "$ENV" == "UAT" ]; then
+          elif ( "$ENV" == "UAT" ); then
             # Deployment to UAT
             Get-ChildItem -Path "D:\Achieve-ui-cicd" | Remove-Item -Recurse -Force
             Copy-Item -Path "dist/achieve-ui/browser/*" -Destination "D:\Achieve-ui-cicd" -Recurse -Force
             Copy-Item -Path "dist/achieve-ui/3rdpartylicenses.txt" -Destination "D:\Achieve-ui-cicd" -Force 
-          elif [ "$ENV" == "PROD" ]; then
+          elif ( "$ENV" == "PROD" ); then
             # Deployment to PROD
             Get-ChildItem -Path "D:\Achieve-ui-cicd" | Remove-Item -Recurse -Force
             Copy-Item -Path "dist/achieve-ui/browser/*" -Destination "D:\Achieve-ui-cicd" -Recurse -Force
