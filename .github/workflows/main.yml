@@ -1,0 +1,25 @@
+name: dynamic-submission-web-v1
+
+on:
+  push:
+    branches: [ main, sprint-*, production/main, development/*]
+  pull_request:
+    branches: [ main, sprint-*, test/*, production/main, development/*]
+  workflow_dispatch:
+    inputs:
+      environment:
+        type: choice
+        description: Select Environment
+        options:
+        - uat
+        - dev
+        - prod
+        - uat_payments
+      choice:
+        type: choice
+        description: Deploy In
+        options:
+        - S3
+  create:
+    tags:
+      - '*.*'
