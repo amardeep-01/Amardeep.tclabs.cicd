@@ -40,9 +40,9 @@ jobs:
       - name: copying from dist to IIS folder
         run: |      
             # Remove-Item -Path "C:\testdemo" -Recurse -Force 
-            Get-ChildItem -Path "C:\testdemo" | Remove-Item -Recurse -Force
-            Copy-Item -Path "dist/achieve-ui/browser/*" -Destination "C:/testdemo" -Recurse -Force
-            Copy-Item -Path "dist/achieve-ui/3rdpartylicenses.txt" -Destination "C:/testdemo" -Force
+            Get-ChildItem -Path "D:\Achieve-ui-cicd" | Remove-Item -Recurse -Force
+            Copy-Item -Path "dist/achieve-ui/browser/*" -Destination "D:\Achieve-ui-cicd" -Recurse -Force
+            Copy-Item -Path "dist/achieve-ui/3rdpartylicenses.txt" -Destination "D:\Achieve-ui-cicd" -Force
 
 
 
