@@ -35,17 +35,20 @@ jobs:
       - name: Determine Environment
         id: env
         run: |
-          $env:TAG="${{ github.ref }}"
-          if ($TAG -like "refs/tags/dev*") {
+          # $env:TAG="${{ github.ref }}"
+          $env:TAG = "refs/tags/developer"
+
+          if ($env:TAG -like "refs/tags/dev*") {
             Write-Output "::set-output name=env::DEV"
-          } elseif ($TAG -like "refs/tags/uat*") {
+          } elseif ($env:TAG -like "refs/tags/uat*") {
             Write-Output "::set-output name=env::UAT"
-          } elseif ($TAG -like "refs/tags/prod*") {
+          } elseif ($env:TAG -like "refs/tags/prod*") {
             Write-Output "::set-output name=env::PROD"
           } else {
             Write-Output "Invalid tag format"
             exit 1
           }
+
 
 
       - name: Deploy
