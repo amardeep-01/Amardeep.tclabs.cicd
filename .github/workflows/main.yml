@@ -36,16 +36,17 @@ jobs:
         id: env
         run: |
           TAG="${{ github.ref }}"
-          if [[ $TAG == refs/tags/dev* ]]; then
-            echo "::set-output name=env::DEV"
-          elif [[ $TAG == refs/tags/uat* ]]; then
-            echo "::set-output name=env::UAT"
-          elif [[ $TAG == refs/tags/prod* ]]; then
-            echo "::set-output name=env::PROD"
-          else
-            echo "Invalid tag format"
+          if ($TAG -like "refs/tags/dev*") {
+            Write-Output "::set-output name=env::DEV"
+          } elseif ($TAG -like "refs/tags/uat*") {
+            Write-Output "::set-output name=env::UAT"
+          } elseif ($TAG -like "refs/tags/prod*") {
+            Write-Output "::set-output name=env::PROD"
+          } else {
+            Write-Output "Invalid tag format"
             exit 1
-          fi
+          }
+
 
       - name: Deploy
         run: |
