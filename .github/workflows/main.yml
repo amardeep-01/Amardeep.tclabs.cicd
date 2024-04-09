@@ -1,7 +1,8 @@
 name: dynamic-submission-web-v1
 
 on:
-  push:
+  push: 
+    branches: [ demo-3]
     tags:
       - 'dev*'
       - 'uat*'
