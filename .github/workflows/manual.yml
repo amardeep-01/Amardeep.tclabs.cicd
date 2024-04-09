@@ -19,6 +19,7 @@ jobs:
       
       - name: Install dependencies
         run: node -v
+         pwd
          
          
 
@@ -27,11 +28,13 @@ jobs:
            npm install -g @angular/cli 
            npm i -f
            dir
+           pwd
          
          
        
       - name: Building project
         run: |
+            pwd
             dir
             ng build
 
