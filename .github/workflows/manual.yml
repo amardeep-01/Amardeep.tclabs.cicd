@@ -6,7 +6,7 @@ on:
   pull_request:
     branches: [development, dev, check_branch, test/ci_cd] 
 
-jobs: 
+jobs:  
   build:
     name: Build Angular Project
     runs-on: self-hosted
