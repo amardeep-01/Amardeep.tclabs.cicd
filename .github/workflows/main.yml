@@ -42,7 +42,7 @@ jobs:
         run: |
           Get-ChildItem -Path "D:\Achieve-ui-cicd" | Remove-Item -Recurse -Force
           Copy-Item -Path "dist/achieve-ui/browser/*" -Destination "D:\Achieve-ui-cicd" -Recurse -Force
-          Copy-Item -Path "dist/achieve-ui/3rdpartylicenses.txt" -Destination "D:\Achieve-ui-cicd" -Force 
+          # Copy-Item -Path "dist/achieve-ui/3rdpartylicenses.txt" -Destination "D:\Achieve-ui-cicd" -Force 
 
       - name: Deploy to QA
         if: ${{ github.event.inputs.environment == 'QA'}}
