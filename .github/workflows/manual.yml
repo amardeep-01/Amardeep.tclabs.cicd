@@ -10,7 +10,7 @@ name: dynamic-submission-web-v1
 
 on:
   push:
-    branches: [ main, sprint-*, production/main, development/*]
+    branches: [ demo-1]
   pull_request:
     branches: [ main, sprint-*, test/*, production/main, development/*]
   workflow_dispatch:
@@ -56,18 +56,18 @@ jobs:
         
          
        
-      - name: Building project
-        run: |
-            pwd
-            dir
-            ng build
+      # - name: Building project
+      #   run: |
+      #       pwd
+      #       dir
+      #       ng build
 
-      - name: copying from dist to IIS folder
-        run: |      
-            # dir
-            Get-ChildItem -Path "D:\Achieve-ui-cicd" | Remove-Item -Recurse -Force
-            Copy-Item -Path "dist/achieve-ui/browser/*" -Destination "D:\Achieve-ui-cicd" -Recurse -Force
-            Copy-Item -Path "dist/achieve-ui/3rdpartylicenses.txt" -Destination "D:\Achieve-ui-cicd" -Force
+      # - name: copying from dist to IIS folder
+      #   run: |      
+      #       # dir
+      #       Get-ChildItem -Path "D:\Achieve-ui-cicd" | Remove-Item -Recurse -Force
+      #       Copy-Item -Path "dist/achieve-ui/browser/*" -Destination "D:\Achieve-ui-cicd" -Recurse -Force
+      #       Copy-Item -Path "dist/achieve-ui/3rdpartylicenses.txt" -Destination "D:\Achieve-ui-cicd" -Force
 
 
 
