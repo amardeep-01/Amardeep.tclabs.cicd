@@ -29,7 +29,13 @@ jobs:
            npm i -f
            dir
            pwd
-         
+
+      - name: Display Current Working Directory
+         run:|
+              pwd
+
+      - name: Display Directory Contents
+        run: dir
          
        
       - name: Building project
