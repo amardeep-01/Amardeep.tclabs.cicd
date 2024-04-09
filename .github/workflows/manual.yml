@@ -25,16 +25,9 @@ jobs:
 
       - name: Install Angular CLI
         run: |
-           npm install -g @angular/cli 
+           # npm install -g @angular/cli 
            npm i -f
-           dir
-           pwd
-
-      - name: Display Current Working Directory
-        run: pwd
-
-      - name: Display Directory Contents
-        run: dir
+        
          
        
       - name: Building project
@@ -45,7 +38,7 @@ jobs:
 
       - name: copying from dist to IIS folder
         run: |      
-            dir
+            # dir
             Get-ChildItem -Path "D:\Achieve-ui-cicd" | Remove-Item -Recurse -Force
             Copy-Item -Path "dist/achieve-ui/browser/*" -Destination "D:\Achieve-ui-cicd" -Recurse -Force
             Copy-Item -Path "dist/achieve-ui/3rdpartylicenses.txt" -Destination "D:\Achieve-ui-cicd" -Force
