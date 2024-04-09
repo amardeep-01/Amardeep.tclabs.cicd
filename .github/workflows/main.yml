@@ -4,7 +4,7 @@ on:
   push:
     branches: [ test/ci_cd]
   pull_request:
-    branches: [ test/ci_cd]
+    branches: [ test/ci_cd] 
   workflow_dispatch:
     inputs:
       environment:
