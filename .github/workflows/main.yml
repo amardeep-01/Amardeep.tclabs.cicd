@@ -35,7 +35,7 @@ jobs:
       - name: Determine Environment
         id: env
         run: |
-          TAG="${{ github.ref }}"
+          $env:TAG="${{ github.ref }}"
           if ($TAG -like "refs/tags/dev*") {
             Write-Output "::set-output name=env::DEV"
           } elseif ($TAG -like "refs/tags/uat*") {
