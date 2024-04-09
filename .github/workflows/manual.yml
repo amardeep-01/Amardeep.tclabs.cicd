@@ -31,8 +31,7 @@ jobs:
            pwd
 
       - name: Display Current Working Directory
-         run:|
-              pwd
+         run:pwd
 
       - name: Display Directory Contents
         run: dir
