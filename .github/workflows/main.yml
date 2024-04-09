@@ -29,26 +29,28 @@ jobs:
       - name: Install packages
         run: npm i -f
 
-      - name: Building project
-        run: ng build
+      # - name: Building project
+      #   run: ng build
 
       - name: Determine Environment
         id: env
         run: |
-          # # $env:TAG="${{ github.ref }}"
-          # $env:TAG = "refs/tags/developer"
+           $env:TAG = "refs/tags/developer"
+  
+             if ($env:TAG -like "refs/tags/dev*") {
+               Write-Output "::set-output name=env::DEV"
+             } elseif ($env:TAG -like "refs/tags/uat*") {
+             Write-Output "::set-output name=env::UAT"
+             } elseif ($env:TAG -like "refs/tags/prod*") {
+             Write-Output "::set-output name=env::PROD"
+             } else {
+              Write-Output "Invalid tag format"
+               exit 1
+              }
 
-          # if ($env:TAG -like "refs/tags/dev*") {
-          #   Write-Output "::set-output name=env::DEV"
-          # } elseif ($env:TAG -like "refs/tags/uat*") {
-          #   Write-Output "::set-output name=env::UAT"
-          # } elseif ($env:TAG -like "refs/tags/prod*") {
-          #   Write-Output "::set-output name=env::PROD"
-          # } else {
-          #   Write-Output "Invalid tag format"
-          #   exit 1
-          # }
-          ENV="${{ steps.env.outputs.env }}"
+            - name: Deploy
+           run: |
+             ENV="${{ steps.env.outputs.env }}"
 
            if ($ENV -eq "DEV") {
 
