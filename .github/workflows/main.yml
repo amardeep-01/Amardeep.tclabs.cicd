@@ -6,7 +6,7 @@ on:
       - '*.*'
   workflow_dispatch:
     inputs:
-      environment:
+      environment: 
         type: choice
         description: Select Environment
         options:
