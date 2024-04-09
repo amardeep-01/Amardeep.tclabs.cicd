@@ -1,10 +1,36 @@
-name: achieve-ui-cicd 
+# name: achieve-ui-cicd 
+
+# on:
+#   push:
+#     branches: [development, dev, check_branch, test/ci_cd] 
+#   pull_request:
+#     branches: [development, dev, check_branch, test/ci_cd] 
+
+name: dynamic-submission-web-v1
 
 on:
   push:
-    branches: [development, dev, check_branch, test/ci_cd] 
+    branches: [ main, sprint-*, production/main, development/*]
   pull_request:
-    branches: [development, dev, check_branch, test/ci_cd] 
+    branches: [ main, sprint-*, test/*, production/main, development/*]
+  workflow_dispatch:
+    inputs:
+      environment:
+        type: choice
+        description: Select Environment
+        options:
+        - uat
+        - dev
+        - prod
+        - uat_payments
+      choice:
+        type: choice
+        description: Deploy In
+        options:
+        - IIS
+  create:
+    tags:
+      - '*.*'
 
 jobs:  
   build:
