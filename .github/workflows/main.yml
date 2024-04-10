@@ -54,8 +54,8 @@ jobs:
         run: |
               $ENV = "${{ steps.env.outputs.env }}"
               if ($ENV -eq "DEV") {
-                  Get-ChildItem -Path "c:\Dev Environment\Core API\PowerHCM-ui\Achieve" | Remove-Item -Recurse -Force
-                  Copy-Item -Path "dist/achieve-ui/browser/*" -Destination "c:\Dev Environment\Core API\PowerHCM-ui\Achieve" -Recurse -Force
+                  Get-ChildItem -Path "C:\Dev Environment\Core API\PowerHCM-ui\Achieve" | Remove-Item -Recurse -Force
+                  Copy-Item -Path "dist/achieve-ui/browser/*" -Destination "C:\Dev Environment\Core API\PowerHCM-ui\Achieve" -Recurse -Force
               } elseif ($ENV -eq "QA") {
                   Get-ChildItem -Path "c:\Dev Environment\Core API\PowerHCM-ui\Achieve" | Remove-Item -Recurse -Force
                   Copy-Item -Path "dist/achieve-ui/browser/*" -Destination "c:\Dev Environment\Core API\PowerHCM-ui\Achieve" -Recurse -Force
