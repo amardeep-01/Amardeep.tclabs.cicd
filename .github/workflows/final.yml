@@ -38,7 +38,7 @@ jobs:
         run: |
           echo "::set-output name=env::${{ github.event.inputs.environment }}"
 
-      - name: Deploy
+      - name: Deploy 
         if: success()
         run: |
           if [ "${{ github.event_name }}" == 'workflow_dispatch' ]; then
