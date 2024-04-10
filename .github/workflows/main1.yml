@@ -52,18 +52,17 @@ jobs:
       - name: Deploy
         if: success()
         run: |
-          $ENV = "${{ steps.env.outputs.env }}"
-          if ($ENV -eq "DEV") {
-            if ($ENV -eq "DEV") {
+              $ENV = "${{ github.event.inputs.environment}}"
+              if ($ENV -eq "DEV") {
                   Get-ChildItem -Path "C:\new-test-01-dev" | Remove-Item -Recurse -Force
                   Copy-Item -Path "dist/achieve-ui/browser/*" -Destination "C:\new-test-01-dev" -Recurse -Force
-          } elseif ($ENV -eq "QA") {
-            Remove-Item -Path "C:\new-test-01-uat" -Recurse -Force
-            Copy-Item -Path "dist/achieve-ui/browser/*" -Destination "C:\new-test-01-uat" -Recurse -Force
-          } elseif ($ENV -eq "UAT") {
-            Remove-Item -Path "C:\new-test-01-qa" -Recurse -Force
-            Copy-Item -Path "dist/achieve-ui/browser/*" -Destination "C:\new-test-01-qa" -Recurse -Force
-          } else {
-            Write-Output "Invalid environment"
-            exit 1
-          }
+              } elseif ($ENV -eq "QA") {
+                  Get-ChildItem -Path "D:\Dev Environment\Core API\PowerHCM-ui\Achieve" | Remove-Item -Recurse -Force
+                  Copy-Item -Path "dist/achieve-ui/browser/*" -Destination "D:\Dev Environment\Core API\PowerHCM-ui\Achieve" -Recurse -Force
+              } elseif ($ENV -eq "UAT") {
+                  Get-ChildItem -Path "D:\Dev Environment\Core API\PowerHCM-ui\Achieve" | Remove-Item -Recurse -Force
+                  Copy-Item -Path "dist/achieve-ui/browser/*" -Destination "D:\Dev Environment\Core API\PowerHCM-ui\Achieve" -Recurse -Force
+              } else {
+                  Write-Output "Invalid environment"
+                  exit 1
+              }
