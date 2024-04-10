@@ -1,9 +1,9 @@
-name: dynamic-submission-web-v1
+name: ACHIEVE-UI-CICD
 
 on:
   push: 
-    branches: [ demo-3]
-    tags:
+    branches: [demo-4]
+    tags: 
       - 'dev*'
       - 'uat*'
       - 'prod*'
@@ -14,13 +14,13 @@ on:
         description: Select Environment
         options:
           - DEV
+          - QA
           - UAT
-          - PROD
 
 jobs:  
   build:
     name: Build and Deploy Angular Project
-    runs-on: self-hosted
+    runs-on: windows-latest
 
     steps:
       - name: Checkout Repository 
@@ -29,8 +29,8 @@ jobs:
       - name: Install packages
         run: npm i -f
 
-      # - name: Building project
-      #   run: ng build
+      - name: Building project
+        run: ng build
 
       - name: Determine Environment
         id: env
@@ -39,10 +39,10 @@ jobs:
   
              if ($env:TAG -like "refs/tags/dev*") {
                Write-Output "::set-output name=env::DEV"
+             } elseif ($env:TAG -like "refs/tags/qa*") {
+             Write-Output "::set-output name=env::QA"
              } elseif ($env:TAG -like "refs/tags/uat*") {
              Write-Output "::set-output name=env::UAT"
-             } elseif ($env:TAG -like "refs/tags/prod*") {
-             Write-Output "::set-output name=env::PROD"
              } else {
               Write-Output "Invalid tag format"
                exit 1
@@ -50,24 +50,21 @@ jobs:
 
       - name: Deploy
         run: |
-           $ENV = "${{ steps.env.outputs.env }}"
+              $ENV = "${{ steps.env.outputs.env }}"
               if ($ENV -eq "DEV") {
-                # Remove-Item -Path "D:\Achieve-ui-cicd" -Recurse -Force
-                # Copy-Item -Path "dist/achieve-ui/browser/*" -Destination "D:\Achieve-ui-cicd" -Recurse -Force
-                Get-ChildItem -Path "D:\Achieve-ui-cicd" | Remove-Item -Recurse -Force
-                Copy-Item -Path "dist/achieve-ui/browser/*" -Destination "D:\Achieve-ui-cicd" -Recurse -Force
+                  Get-ChildItem -Path "D:\Dev Environment\Core API\PowerHCM-ui\Achieve" | Remove-Item -Recurse -Force
+                  Copy-Item -Path "dist/achieve-ui/browser/*" -Destination "D:\Dev Environment\Core API\PowerHCM-ui\Achieve" -Recurse -Force
+              } elseif ($ENV -eq "QA") {
+                  Get-ChildItem -Path "D:\Dev Environment\Core API\PowerHCM-ui\Achieve" | Remove-Item -Recurse -Force
+                  Copy-Item -Path "dist/achieve-ui/browser/*" -Destination "D:\Dev Environment\Core API\PowerHCM-ui\Achieve" -Recurse -Force
               } elseif ($ENV -eq "UAT") {
-                Remove-Item -Path "D:\Achieve-ui-cicd" -Recurse -Force
-                Copy-Item -Path "dist/achieve-ui/browser/*" -Destination "D:\Achieve-ui-cicd" -Recurse -Force
-                Copy-Item -Path "dist/achieve-ui/3rdpartylicenses.txt" -Destination "D:\Achieve-ui-cicd" -Force 
-              } elseif ($ENV -eq "PROD") {
-                Remove-Item -Path "D:\Achieve-ui-cicd" -Recurse -Force
-                Copy-Item -Path "dist/achieve-ui/browser/*" -Destination "D:\Achieve-ui-cicd" -Recurse -Force
-                Copy-Item -Path "dist/achieve-ui/3rdpartylicenses.txt" -Destination "D:\Achieve-ui-cicd" -Force 
+                  Get-ChildItem -Path "D:\Dev Environment\Core API\PowerHCM-ui\Achieve" | Remove-Item -Recurse -Force
+                  Copy-Item -Path "dist/achieve-ui/browser/*" -Destination "D:\Dev Environment\Core API\PowerHCM-ui\Achieve" -Recurse -Force 
               } else {
-                Write-Output "Invalid environment"
-                exit 1
+                  Write-Output "Invalid environment"
+                  exit 1
               }
+
 
 
    
