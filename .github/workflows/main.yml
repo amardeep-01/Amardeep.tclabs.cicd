@@ -48,28 +48,26 @@ jobs:
                exit 1
               }
 
-            - name: Deploy
-           run: |
-             ENV="${{ steps.env.outputs.env }}"
-
-           if ($ENV -eq "DEV") {
-
-            Get-ChildItem -Path "D:\Achieve-ui-cicd" | Remove-Item -Recurse -Force
-              Copy-Item -Path "dist/achieve-ui/browser/*" -Destination "D:\Achieve-ui-cicd" -Recurse -Force
-             } elseif ($ENV -eq "UAT") {
- 
-            Get-ChildItem -Path "D:\Achieve-ui-cicd" | Remove-Item -Recurse -Force
-             Copy-Item -Path "dist/achieve-ui/browser/*" -Destination "D:\Achieve-ui-cicd" -Recurse -Force
-              Copy-Item -Path "dist/achieve-ui/3rdpartylicenses.txt" -Destination "D:\Achieve-ui-cicd" -Force 
-              } elseif ($ENV -eq "PROD") {
+      - name: Deploy
+        run: |
+         ENV="${{ steps.env.outputs.env }}"
+         if ($ENV -eq "DEV") {
+          Get-ChildItem -Path "D:\Achieve-ui-cicd" | Remove-Item -Recurse -Force
+          Copy-Item -Path "dist/achieve-ui/browser/*" -Destination "D:\Achieve-ui-cicd" -Recurse -Force
+          } elseif ($ENV -eq "UAT") {
   
-                Get-ChildItem -Path "D:\Achieve-ui-cicd" | Remove-Item -Recurse -Force
-              Copy-Item -Path "dist/achieve-ui/browser/*" -Destination "D:\Achieve-ui-cicd" -Recurse -Force
-              Copy-Item -Path "dist/achieve-ui/3rdpartylicenses.txt" -Destination "D:\Achieve-ui-cicd" -Force 
-              } else {
-                Write-Output "Invalid environment"
-               exit 1
-                  }
+          Get-ChildItem -Path "D:\Achieve-ui-cicd" | Remove-Item -Recurse -Force
+           Copy-Item -Path "dist/achieve-ui/browser/*" -Destination "D:\Achieve-ui-cicd" -Recurse -Force
+            Copy-Item -Path "dist/achieve-ui/3rdpartylicenses.txt" -Destination "D:\Achieve-ui-cicd" -Force 
+            } elseif ($ENV -eq "PROD") {
+
+            Get-ChildItem -Path "D:\Achieve-ui-cicd" | Remove-Item -Recurse -Force
+          Copy-Item -Path "dist/achieve-ui/browser/*" -Destination "D:\Achieve-ui-cicd" -Recurse -Force
+          Copy-Item -Path "dist/achieve-ui/3rdpartylicenses.txt" -Destination "D:\Achieve-ui-cicd" -Force 
+          } else {
+            Write-Output "Invalid environment"
+           exit 1
+              }
 
 
 
