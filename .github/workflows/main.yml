@@ -52,7 +52,9 @@ jobs:
         run: |
            $ENV = "${{ steps.env.outputs.env }}"
               if ($ENV -eq "DEV") {
-                Remove-Item -Path "D:\Achieve-ui-cicd" -Recurse -Force
+                # Remove-Item -Path "D:\Achieve-ui-cicd" -Recurse -Force
+                # Copy-Item -Path "dist/achieve-ui/browser/*" -Destination "D:\Achieve-ui-cicd" -Recurse -Force
+                Get-ChildItem -Path "D:\Achieve-ui-cicd" | Remove-Item -Recurse -Force
                 Copy-Item -Path "dist/achieve-ui/browser/*" -Destination "D:\Achieve-ui-cicd" -Recurse -Force
               } elseif ($ENV -eq "UAT") {
                 Remove-Item -Path "D:\Achieve-ui-cicd" -Recurse -Force
