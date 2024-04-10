@@ -1,73 +1,64 @@
-name: dynamic-submission-web-v1
+name: ACHIEVE-UI-CICD
 
 on:
-  push: 
-    branches: [ demo-3]
+  push:
+    branches:
+      - "*"
     tags:
-      - 'dev*'
-      - 'uat*'
-      - 'prod*'
+      - 'dev_v*'
+      - 'uat_v*'
+      - 'prod_v*'
   workflow_dispatch:
     inputs:
-      environment: 
+      environment:
         type: choice
         description: Select Environment
         options:
           - DEV
+          - QA
           - UAT
-          - PROD
 
-jobs:  
-  build:
+jobs:
+  build-and-deploy:
     name: Build and Deploy Angular Project
     runs-on: self-hosted
-
     steps:
-      - name: Checkout Repository 
+      - name: Checkout Repository
         uses: actions/checkout@v2
 
       - name: Install packages
         run: npm i -f
 
-      # - name: Building project
-      #   run: ng build
+      - name: Building project
+        run: ng build --base-href=/achieve/
 
       - name: Determine Environment
         id: env
+        if: github.event_name == 'workflow_dispatch'
         run: |
-           $env:TAG = "refs/tags/developer"
-  
-             if ($env:TAG -like "refs/tags/dev*") {
-               Write-Output "::set-output name=env::DEV"
-             } elseif ($env:TAG -like "refs/tags/uat*") {
-             Write-Output "::set-output name=env::UAT"
-             } elseif ($env:TAG -like "refs/tags/prod*") {
-             Write-Output "::set-output name=env::PROD"
-             } else {
-              Write-Output "Invalid tag format"
-               exit 1
-              }
+          echo "::set-output name=env::${{ github.event.inputs.environment }}"
 
       - name: Deploy
+        if: success()
         run: |
-           $ENV = "${{ steps.env.outputs.env }}"
-              if ($ENV -eq "DEV") {
-                # Remove-Item -Path "D:\Achieve-ui-cicd" -Recurse -Force
-                # Copy-Item -Path "dist/achieve-ui/browser/*" -Destination "D:\Achieve-ui-cicd" -Recurse -Force
-                Get-ChildItem -Path "D:\Achieve-ui-cicd" | Remove-Item -Recurse -Force
-                Copy-Item -Path "dist/achieve-ui/browser/*" -Destination "D:\Achieve-ui-cicd" -Recurse -Force
-              } elseif ($ENV -eq "UAT") {
-                Remove-Item -Path "D:\Achieve-ui-cicd" -Recurse -Force
-                Copy-Item -Path "dist/achieve-ui/browser/*" -Destination "D:\Achieve-ui-cicd" -Recurse -Force
-                Copy-Item -Path "dist/achieve-ui/3rdpartylicenses.txt" -Destination "D:\Achieve-ui-cicd" -Force 
-              } elseif ($ENV -eq "PROD") {
-                Remove-Item -Path "D:\Achieve-ui-cicd" -Recurse -Force
-                Copy-Item -Path "dist/achieve-ui/browser/*" -Destination "D:\Achieve-ui-cicd" -Recurse -Force
-                Copy-Item -Path "dist/achieve-ui/3rdpartylicenses.txt" -Destination "D:\Achieve-ui-cicd" -Force 
-              } else {
-                Write-Output "Invalid environment"
-                exit 1
-              }
+          if [ "${{ github.event_name }}" == 'workflow_dispatch' ]; then
+            ENV="${{ steps.env.outputs.env }}"
+          elif [[ "${{ github.ref }}" =~ ^refs/tags/ ]]; then
+            TAG="${{ github.ref }}"
+            if [[ "$TAG" =~ dev_v* ]]; then
+              ENV="DEV"
+            elif [[ "$TAG" =~ uat_v* ]]; then
+              ENV="UAT"
+            elif [[ "$TAG" =~ prod_v* ]]; then
+              ENV="PROD"
+            else
+              exit 0
+            fi
+          else
+            exit 0
+          fi
 
-
-   
+          if [ "$ENV" == "DEV" ] || [ "$ENV" == "QA" ] || [ "$ENV" == "UAT" ]; then
+            Get-ChildItem -Path "D:\Dev Environment\Core API\PowerHCM-ui\Achieve" | Remove-Item -Recurse -Force
+            Copy-Item -Path "dist/achieve-ui/browser/*" -Destination "D:\Dev Environment\Core API\PowerHCM-ui\Achieve" -Recurse -Force
+          fi
