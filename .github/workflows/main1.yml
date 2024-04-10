@@ -54,8 +54,9 @@ jobs:
         run: |
           $ENV = "${{ steps.env.outputs.env }}"
           if ($ENV -eq "DEV") {
-            Remove-Item -Path "C:\new-test-01-dev" -Recurse -Force
-            Copy-Item -Path "dist/achieve-ui/browser/*" -Destination "C:\new-test-01-dev" -Recurse -Force
+            if ($ENV -eq "DEV") {
+                  Get-ChildItem -Path "C:\new-test-01-dev" | Remove-Item -Recurse -Force
+                  Copy-Item -Path "dist/achieve-ui/browser/*" -Destination "C:\new-test-01-dev" -Recurse -Force
           } elseif ($ENV -eq "QA") {
             Remove-Item -Path "C:\new-test-01-uat" -Recurse -Force
             Copy-Item -Path "dist/achieve-ui/browser/*" -Destination "C:\new-test-01-uat" -Recurse -Force
