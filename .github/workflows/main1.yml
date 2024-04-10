@@ -1,0 +1,64 @@
+name: ACHIEVE-UI-CICD
+
+on:
+  push:
+    branches:
+      - "*"
+    tags:
+      - 'dev_v*'
+      - 'uat_v*'
+      - 'prod_v*'
+  workflow_dispatch:
+    inputs:
+      environment:
+        type: choice
+        description: Select Environment
+        options:
+          - DEV
+          - QA
+          - UAT
+
+jobs:
+  build-and-deploy:
+    name: Build and Deploy Angular Project
+    runs-on: self-hosted
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Install packages
+        run: npm i -f
+
+      - name: Building project
+        run: ng build --base-href=/achieve/
+
+      - name: Determine Environment
+        id: env
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          echo "::set-output name=env::${{ github.event.inputs.environment }}"
+
+      - name: Deploy
+        if: success()
+        run: |
+          if [ "${{ github.event_name }}" == 'workflow_dispatch' ]; then
+            ENV="${{ steps.env.outputs.env }}"
+          elif [[ "${{ github.ref }}" =~ ^refs/tags/ ]]; then
+            TAG="${{ github.ref }}"
+            if [[ "$TAG" =~ dev_v* ]]; then
+              ENV="DEV"
+            elif [[ "$TAG" =~ uat_v* ]]; then
+              ENV="UAT"
+            elif [[ "$TAG" =~ prod_v* ]]; then
+              ENV="PROD"
+            else
+              exit 0
+            fi
+          else
+            exit 0
+          fi
+
+          if [ "$ENV" == "DEV" ] || [ "$ENV" == "QA" ] || [ "$ENV" == "UAT" ]; then
+            Get-ChildItem -Path "D:\Dev Environment\Core API\PowerHCM-ui\Achieve" | Remove-Item -Recurse -Force
+            Copy-Item -Path "dist/achieve-ui/browser/*" -Destination "D:\Dev Environment\Core API\PowerHCM-ui\Achieve" -Recurse -Force
+          fi
