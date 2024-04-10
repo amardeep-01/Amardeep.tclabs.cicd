@@ -38,27 +38,20 @@ jobs:
         run: |
           echo "::set-output name=env::${{ github.event.inputs.environment }}"
 
-      - name: Deploy 
+      - name: Deploy
         if: success()
         run: |
-          if [ "${{ github.event_name }}" == 'workflow_dispatch' ]; then
-            ENV="${{ steps.env.outputs.env }}"
-          elif [[ "${{ github.ref }}" =~ ^refs/tags/ ]]; then
-            TAG="${{ github.ref }}"
-            if [[ "$TAG" =~ dev_v* ]]; then
-              ENV="DEV"
-            elif [[ "$TAG" =~ uat_v* ]]; then
-              ENV="UAT"
-            elif [[ "$TAG" =~ prod_v* ]]; then
-              ENV="PROD"
-            else
-              exit 0
-            fi
-          else
-            exit 0
-          fi
-
-          if [ "$ENV" == "DEV" ] || [ "$ENV" == "QA" ] || [ "$ENV" == "UAT" ]; then
-            Get-ChildItem -Path "D:\Dev Environment\Core API\PowerHCM-ui\Achieve" | Remove-Item -Recurse -Force
-            Copy-Item -Path "dist/achieve-ui/browser/*" -Destination "D:\Dev Environment\Core API\PowerHCM-ui\Achieve" -Recurse -Force
-          fi
+              $ENV = "${{ github.event.inputs.environment}}"
+              if ($ENV -eq "DEV") {
+                  Get-ChildItem -Path "D:\Dev Environment\Core API\PowerHCM-ui\Achieve" | Remove-Item -Recurse -Force
+                  Copy-Item -Path "dist/achieve-ui/browser/*" -Destination "D:\Dev Environment\Core API\PowerHCM-ui\Achieve" -Recurse -Force
+              } elseif ($ENV -eq "QA") {
+                  Get-ChildItem -Path "D:\Dev Environment\Core API\PowerHCM-ui\Achieve" | Remove-Item -Recurse -Force
+                  Copy-Item -Path "dist/achieve-ui/browser/*" -Destination "D:\Dev Environment\Core API\PowerHCM-ui\Achieve" -Recurse -Force
+              } elseif ($ENV -eq "UAT") {
+                  Get-ChildItem -Path "D:\Dev Environment\Core API\PowerHCM-ui\Achieve" | Remove-Item -Recurse -Force
+                  Copy-Item -Path "dist/achieve-ui/browser/*" -Destination "D:\Dev Environment\Core API\PowerHCM-ui\Achieve" -Recurse -Force
+              } else {
+                  Write-Output "Invalid environment"
+                  exit 1
+              }
