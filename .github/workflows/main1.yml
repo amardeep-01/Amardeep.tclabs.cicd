@@ -56,7 +56,7 @@ jobs:
             $ENV = "QA"
             Write-Output "::set-output name=env::$ENV"
           }
-        }
+          }
 
           Write-Output "ENV: $ENV"
 
