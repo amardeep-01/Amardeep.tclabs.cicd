@@ -42,6 +42,10 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
+
+      - name: Install packages
+        run: npm i -f
+
         
       - name: Determine Environment
         id: env
