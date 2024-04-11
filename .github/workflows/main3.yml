@@ -67,37 +67,7 @@ jobs:
 
           Write-Output "ENV: $ENV"
           
-#          -name: Bulding
-# run: |
-#                  $ENV = "${{ steps.env.outputs.env }}"
-#                  echo "Environment: $ENV"
-#                  if ($ENV -eq "DEV") {
-#                     ng build --base-href=/achieve/
-#                  } elseif ($ENV -eq "QA") {
-#                       ng build --base-href=/achieve/
-#                  } elseif ($ENV -eq "UAT") {
-#                      ng build --base-href=/achieve/
-#                  }
-      
-#         - name: Deploy
-#          if: success()
-#          run: |
-#                $ENV = "${{ steps.env.outputs.env }}"
-#                echo "Environment: $ENV"
-#                if ($ENV -eq "DEV") {
-#                   # ng build --base-href=/achieve/
-#                   Get-ChildItem -Path "C:\new-test-01-dev" | Remove-Item -Recurse -Force
-#                   Copy-Item -Path "dist/achieve-ui/browser/*" -Destination "C:\new-test-01-dev" -Recurse -Force
-#                } elseif ($ENV -eq "QA") {
-#                   Get-ChildItem -Path "C:\new-test-01-dev" | Remove-Item -Recurse -Force
-#                   Copy-Item -Path "dist/achieve-ui/browser/*" -Destination "C:\new-test-01-dev" -Recurse -Force
-#                } elseif ($ENV -eq "UAT") {
-#                    Get-ChildItem -Path "C:\new-test-01-dev" | Remove-Item -Recurse -Force
-#                   Copy-Item -Path "dist/achieve-ui/browser/*" -Destination "C:\new-test-01-dev" -Recurse -Force
-#                } else {
-#                   Write-Output "Invalid environment"
-#                   exit 1
-#                }
+
             
        - name: Bulding
          run: |
