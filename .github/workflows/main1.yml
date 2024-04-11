@@ -43,7 +43,8 @@ jobs:
           } elseif ($env:GITHUB_REF -match '^refs/tags/') {
             $TAG = $env:GITHUB_REF
             Write-Output "Tag: $TAG"
-            if ($TAG -match '^refs/tags/dev_v') {
+            if: startsWith( github.ref, '^refs/tags/dev_v*')
+            {
               $ENV = "DEV"
               echo "$ENV"
               Write-Output "::set-output name=env::$ENV"
@@ -63,19 +64,20 @@ jobs:
       - name: Deploy
         if: success()
         run: |
-              $ENV = "::get-output name=env::"
-              if ($ENV -eq "DEV") {
+               $ENV = "${{ steps.env.outputs.env }}"
+               echo "Environment: $ENV"
+               if ($ENV -eq "DEV") {
                   Get-ChildItem -Path "C:\new-test-01-dev" | Remove-Item -Recurse -Force
                   Copy-Item -Path "dist/achieve-ui/browser/*" -Destination "C:\new-test-01-dev" -Recurse -Force
-              } elseif ($ENV -eq "QA") {
+               } elseif ($ENV -eq "QA") {
                   Get-ChildItem -Path "D:\Dev Environment\Core API\PowerHCM-ui\Achieve" | Remove-Item -Recurse -Force
                   Copy-Item -Path "dist/achieve-ui/browser/*" -Destination "D:\Dev Environment\Core API\PowerHCM-ui\Achieve" -Recurse -Force
-              } elseif ($ENV -eq "UAT") {
+               } elseif ($ENV -eq "UAT") {
                   Get-ChildItem -Path "D:\Dev Environment\Core API\PowerHCM-ui\Achieve" | Remove-Item -Recurse -Force
                   Copy-Item -Path "dist/achieve-ui/browser/*" -Destination "D:\Dev Environment\Core API\PowerHCM-ui\Achieve" -Recurse -Force
-              } else {
+               } else {
                   Write-Output "Invalid environment"
                   exit 1
-              }
+               }
 
 
