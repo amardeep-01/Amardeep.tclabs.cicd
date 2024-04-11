@@ -5,19 +5,19 @@ on:
     branches: "*"
   pull_request:
     branches: "*"
-  # workflow_dispatch:
-  #   inputs:
-  #     environment:
-  #       type: choice
-  #       description: Select Environment
-  #       options:
-  #       - DEV
-  #       - QA
-  #       - UAT
+  workflow_dispatch:
+    inputs:
+      environment:
+        type: choice
+        description: Select Environment
+        options:
+        - DEV
+        - QA
+        - UAT
      
-  # create:
-  #   tags:
-  #     - '*.*'
+  create:
+    tags:
+      - '*.*'
 
 
      
