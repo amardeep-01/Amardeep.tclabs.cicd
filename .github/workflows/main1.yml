@@ -72,11 +72,11 @@ jobs:
                   Get-ChildItem -Path "C:\new-test-01-dev" | Remove-Item -Recurse -Force
                   Copy-Item -Path "dist/achieve-ui/browser/*" -Destination "C:\new-test-01-dev" -Recurse -Force
                } elseif ($ENV -eq "QA") {
-                  Get-ChildItem -Path "D:\Dev Environment\Core API\PowerHCM-ui\Achieve" | Remove-Item -Recurse -Force
-                  Copy-Item -Path "dist/achieve-ui/browser/*" -Destination "D:\Dev Environment\Core API\PowerHCM-ui\Achieve" -Recurse -Force
+                  Get-ChildItem -Path "C:\new-test-01-dev" | Remove-Item -Recurse -Force
+                  Copy-Item -Path "dist/achieve-ui/browser/*" -Destination "C:\new-test-01-dev" -Recurse -Force
                } elseif ($ENV -eq "UAT") {
-                  Get-ChildItem -Path "D:\Dev Environment\Core API\PowerHCM-ui\Achieve" | Remove-Item -Recurse -Force
-                  Copy-Item -Path "dist/achieve-ui/browser/*" -Destination "D:\Dev Environment\Core API\PowerHCM-ui\Achieve" -Recurse -Force
+                   Get-ChildItem -Path "C:\new-test-01-dev" | Remove-Item -Recurse -Force
+                  Copy-Item -Path "dist/achieve-ui/browser/*" -Destination "C:\new-test-01-dev" -Recurse -Force
                } else {
                   Write-Output "Invalid environment"
                   exit 1
