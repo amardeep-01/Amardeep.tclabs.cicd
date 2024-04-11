@@ -48,6 +48,25 @@ jobs:
       #         Write-Output "::set-output name=env::QA"
       #       }
       #     }
+      # - name: Determine Environment
+      #   id: env
+      #   if: github.event_name == 'workflow_dispatch' || startsWith(github.ref, 'refs/tags/')
+      #   run: |
+      #     Write-Output "Event Name: $env:GITHUB_EVENT_NAME"
+      #     Write-Output "Ref: $env:GITHUB_REF"
+      #     if ($env:GITHUB_EVENT_NAME -eq 'workflow_dispatch') {
+      #       Write-Output "::set-output name=env::${{ github.event.inputs.environment }}"
+      #     } elseif ($env:GITHUB_REF -match '^refs/tags/') {
+      #       $TAG = $env:GITHUB_REF
+      #       Write-Output "Tag: $TAG"
+      #       if ($TAG -match '^refs/tags/dev_v') {
+      #         Write-Output "::set-output name=env::DEV"
+      #       } elseif ($TAG -match '^refs/tags/uat_v') {
+      #         Write-Output "::set-output name=env::UAT"
+      #       } elseif ($TAG -match '^refs/tags/prod_v') {
+      #         Write-Output "::set-output name=env::QA"
+      #       }
+      #     }
       - name: Determine Environment
         id: env
         if: github.event_name == 'workflow_dispatch' || startsWith(github.ref, 'refs/tags/')
@@ -60,11 +79,14 @@ jobs:
             $TAG = $env:GITHUB_REF
             Write-Output "Tag: $TAG"
             if ($TAG -match '^refs/tags/dev_v') {
-              Write-Output "::set-output name=env::DEV"
+              $ENV = "DEV"
+              Write-Output "::set-output name=env::$ENV"
             } elseif ($TAG -match '^refs/tags/uat_v') {
-              Write-Output "::set-output name=env::UAT"
+              $ENV = "UAT"
+              Write-Output "::set-output name=env::$ENV"
             } elseif ($TAG -match '^refs/tags/prod_v') {
-              Write-Output "::set-output name=env::QA"
+              $ENV = "QA"
+              Write-Output "::set-output name=env::$ENV"
             }
           }
 
