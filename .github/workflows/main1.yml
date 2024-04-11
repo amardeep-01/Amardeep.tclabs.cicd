@@ -80,17 +80,19 @@ jobs:
             Write-Output "Tag: $TAG"
             if ($TAG -match '^refs/tags/dev_v') {
               $ENV = "DEV"
+              Write-Output "Environment: $ENV"
               Write-Output "::set-output name=env::$ENV"
             } elseif ($TAG -match '^refs/tags/uat_v') {
               $ENV = "UAT"
+              Write-Output "Environment: $ENV"
               Write-Output "::set-output name=env::$ENV"
             } elseif ($TAG -match '^refs/tags/prod_v') {
               $ENV = "QA"
+              Write-Output "Environment: $ENV"
               Write-Output "::set-output name=env::$ENV"
             }
           }
 
-     
 
 
       - name: Deploy
