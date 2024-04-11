@@ -54,7 +54,8 @@ jobs:
           Write-Output "Environment: $ENV"
           Write-Output "::set-output name=env::$ENV"
           }
-          echo"ENV"
+
+          Write-Output "ENV: $ENV"
 
 
 
