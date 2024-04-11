@@ -40,24 +40,21 @@ jobs:
           Write-Output "Ref: $env:GITHUB_REF"
           if ($env:GITHUB_EVENT_NAME -eq 'workflow_dispatch') {
             Write-Output "::set-output name=env::${{ github.event.inputs.environment }}"
-          } elseif ($env:GITHUB_REF -match '^refs/tags/') {
-            $TAG = $env:GITHUB_REF
-            Write-Output "Tag: $TAG"
-            if: startsWith( github.ref, '^refs/tags/dev_v*')
-            {
-              $ENV = "DEV"
-              echo "$ENV"
-              Write-Output "::set-output name=env::$ENV"
 
-            } elseif ($TAG -match '^refs/tags/uat_v') {
-              $ENV = "UAT"
-              Write-Output "Environment: $ENV"
-              Write-Output "::set-output name=env::$ENV"
-            } elseif ($TAG -match '^refs/tags/prod_v') {
-              $ENV = "QA"
-              Write-Output "::set-output name=env::$ENV"
-            }
+          } elseif ($env:GITHUB_REF.StartsWith('^refs/tags/dev_v')) {
+          $ENV = "DEV"
+          Write-Output "Environment: $ENV"
+          Write-Output "::set-output name=env::$ENV"
+          } elseif ($env:GITHUB_REF.StartsWith('^refs/tags/uat_v')) {
+          $ENV = "UAT"
+          Write-Output "Environment: $ENV"
+          Write-Output "::set-output name=env::$ENV"
+          } elseif ($env:GITHUB_REF.StartsWith('^refs/tags/prod_v')) {
+          $ENV = "QA"
+          Write-Output "Environment: $ENV"
+          Write-Output "::set-output name=env::$ENV"
           }
+
 
 
 
