@@ -45,7 +45,6 @@ jobs:
             Write-Output "Tag: $TAG"
             if ($TAG -match '^refs/tags/dev_v') {
               $ENV = "DEV"
-              Write-Output "Environment: $ENV"
               Write-Output "::set-output name=env::$ENV"
 
             } elseif ($TAG -match '^refs/tags/uat_v') {
@@ -54,7 +53,6 @@ jobs:
               Write-Output "::set-output name=env::$ENV"
             } elseif ($TAG -match '^refs/tags/prod_v') {
               $ENV = "QA"
-              Write-Output "Environment: $ENV"
               Write-Output "::set-output name=env::$ENV"
             }
           }
@@ -65,7 +63,6 @@ jobs:
         if: success()
         run: |
               $ENV = "::get-output name=env::"
-              $ENV = "${{ github.event.inputs.environment}}"
               if ($ENV -eq "DEV") {
                   Get-ChildItem -Path "C:\new-test-01-dev" | Remove-Item -Recurse -Force
                   Copy-Item -Path "dist/achieve-ui/browser/*" -Destination "C:\new-test-01-dev" -Recurse -Force
