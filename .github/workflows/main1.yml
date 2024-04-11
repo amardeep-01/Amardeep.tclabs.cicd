@@ -45,6 +45,7 @@ jobs:
             Write-Output "Tag: $TAG"
             if ($TAG -match '^refs/tags/dev_v') {
               $ENV = "DEV"
+              echo "$ENV"
               Write-Output "::set-output name=env::$ENV"
 
             } elseif ($TAG -match '^refs/tags/uat_v') {
