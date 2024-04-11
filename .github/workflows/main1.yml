@@ -3,7 +3,7 @@ name: ACHIEVE-UI-CICD
 on:
   push:
     branches:
-      - '**'
+      - '**' 
     tags:
       - 'dev_v*'  
       - 'uat_v*' 
