@@ -32,19 +32,37 @@ jobs:
       - name: Building project
         run: ng build --base-href=/achieve/
 
+      # - name: Determine Environment
+      #   id: env
+      #   if: github.event_name == 'workflow_dispatch' || startsWith(github.ref, 'refs/tags/')
+      #   run: |
+      #     if ($env:GITHUB_EVENT_NAME -eq 'workflow_dispatch') {
+      #       Write-Output "::set-output name=env::${{ github.event.inputs.environment }}"
+      #     } elseif ($env:GITHUB_REF -match '^refs/tags/') {
+      #       $TAG = $env:GITHUB_REF
+      #       if ($TAG -match 'dev_v*') {
+      #         Write-Output "::set-output name=env::DEV"
+      #       } elseif ($TAG -match 'uat_v*') {
+      #         Write-Output "::set-output name=env::UAT"
+      #       } elseif ($TAG -match 'prod_v*') {
+      #         Write-Output "::set-output name=env::QA"
+      #       }
+      #     }
       - name: Determine Environment
         id: env
-        if: github.event_name == 'workflow_dispatch' || startsWith(github.ref, 'refs/tags/')
+        if: $env:GITHUB_EVENT_NAME == 'workflow_dispatch' || startsWith($env:GITHUB_REF, 'refs/tags/')
         run: |
+          Write-Output "Event Name: $env:GITHUB_EVENT_NAME"
+          Write-Output "Ref: $env:GITHUB_REF"
           if ($env:GITHUB_EVENT_NAME -eq 'workflow_dispatch') {
             Write-Output "::set-output name=env::${{ github.event.inputs.environment }}"
           } elseif ($env:GITHUB_REF -match '^refs/tags/') {
             $TAG = $env:GITHUB_REF
-            if ($TAG -match 'dev_v*') {
+            if ($TAG -match '^refs/tags/dev_v') {
               Write-Output "::set-output name=env::DEV"
-            } elseif ($TAG -match 'uat_v*') {
+            } elseif ($TAG -match '^refs/tags/uat_v') {
               Write-Output "::set-output name=env::UAT"
-            } elseif ($TAG -match 'prod_v*') {
+            } elseif ($TAG -match '^refs/tags/prod_v') {
               Write-Output "::set-output name=env::QA"
             }
           }
