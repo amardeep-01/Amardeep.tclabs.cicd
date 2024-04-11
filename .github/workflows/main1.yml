@@ -41,7 +41,7 @@ jobs:
           if ($env:GITHUB_EVENT_NAME -eq 'workflow_dispatch') {
             Write-Output "::set-output name=env::${{ github.event.inputs.environment }}"
 
-          } elseif ($env:GITHUB_REF.StartsWith('^refs/tags/dev_v')) {
+          } elseif ($env:GITHUB_REF.StartsWith('^refs/tags/dev_v*')) {
           $ENV = "DEV"
           Write-Output "Environment: $ENV"
           Write-Output "::set-output name=env::$ENV"
