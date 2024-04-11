@@ -2,9 +2,9 @@ name: dynamic-submission-web-v1
 
 on:
   push:
-    branches: [ test/ci_cd]
+    branches: [ test/ci_cd12]
   pull_request:
-    branches: [ test/ci_cd] 
+    branches: [ test/ci_cd12] 
   workflow_dispatch:
     inputs:
       environment:
