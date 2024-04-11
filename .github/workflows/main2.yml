@@ -4,19 +4,19 @@ on:
   push:
     branches:
       - '**' 
-    tags:
-      - 'dev_v*'  
-      - 'uat_v*' 
-      - 'prod_v*'
-  workflow_dispatch:
-    inputs:
-      environment:
-        type: choice
-        description: Select Environment
-        options:
-          - DEV
-          - QA
-          - UAT
+  #   tags:
+  #     - 'dev_v*'  
+  #     - 'uat_v*' 
+  #     - 'prod_v*'
+  # workflow_dispatch:
+  #   inputs:
+  #     environment:
+  #       type: choice
+  #       description: Select Environment
+  #       options:
+  #         - DEV
+  #         - QA
+  #         - UAT
 
 jobs:
   build-and-deploy:
