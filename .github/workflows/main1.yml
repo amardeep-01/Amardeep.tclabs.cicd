@@ -5,7 +5,7 @@ on:
     branches:
       - '**'
     tags:
-      - 'dev_v*' 
+      - 'dev_v*'  
       - 'uat_v*' 
       - 'prod_v*'
   workflow_dispatch:
