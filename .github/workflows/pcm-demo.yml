@@ -1,0 +1,19 @@
+name: Delete Files and Directories
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  delete_files_and_directories:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Delete files and directories
+        run: |
+          C:\power-hcm-demo
+          find . -type f -not \( -path "./archive/*" -o -path "./engage/*" -o -path "./attendance/*" -o -path "./paywheel/*" \) -delete
+          find . -type d -empty -not \( -path "./archive" -o -path "./engage" -o -path "./attendance" -o -path "./paywheel" \) -delete
