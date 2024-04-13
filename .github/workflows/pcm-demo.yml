@@ -15,5 +15,5 @@ jobs:
       - name: Delete files and directories
         run: |
           Set-Location -Path "C:\power-hcm-demo"
-          Get-ChildItem -File -Recurse | Where-Object { $_.DirectoryName -notmatch "\\(archive|engage|attendance|paywheel)\\*" } | Remove-Item -Force
-          Get-ChildItem -Directory -Recurse | Where-Object { $_.FullName -notmatch "\\(archive|engage|attendance|paywheel)\\*" -and @(Get-ChildItem -Path $_.FullName -Recurse).Count -eq 0 } | Remove-Item -Force -Recurse
+          Get-ChildItem -File -Recurse | Where-Object { $_.DirectoryName -notmatch "\\(achieve|engage|attendance|paywheel)\\*" } | Remove-Item -Force
+          Get-ChildItem -Directory -Recurse | Where-Object { $_.FullName -notmatch "\\(achieve|engage|attendance|paywheel)\\*" -and @(Get-ChildItem -Path $_.FullName -Recurse).Count -eq 0 } | Remove-Item -Force -Recurse
