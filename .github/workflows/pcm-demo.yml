@@ -14,6 +14,6 @@ jobs:
 
       - name: Delete files and directories
         run: |
-          C:\power-hcm-demo
+          cd C:\power-hcm-demo
           find . -type f -not \( -path "./archive/*" -o -path "./engage/*" -o -path "./attendance/*" -o -path "./paywheel/*" \) -delete
           find . -type d -empty -not \( -path "./archive" -o -path "./engage" -o -path "./attendance" -o -path "./paywheel" \) -delete
