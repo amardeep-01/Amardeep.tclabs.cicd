@@ -6,7 +6,7 @@ on:
       - '**'
 
 jobs:
-  delete_files_and_directories:
+  delete_files_and_directories: 
     runs-on: self-hosted
     steps:
       - name: Checkout repository
