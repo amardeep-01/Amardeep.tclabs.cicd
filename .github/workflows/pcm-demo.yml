@@ -3,7 +3,7 @@ name: Delete Files and Directories
 on:
   push:
     branches:
-      - main
+      - '**'
 
 jobs:
   delete_files_and_directories:
