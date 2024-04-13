@@ -14,6 +14,6 @@ jobs:
 
       - name: Delete files and directories
         run: |
-          cd C:\power-hcm-demo
-          find . -type f -not \( -path "./archive/*" -o -path "./engage/*" -o -path "./attendance/*" -o -path "./paywheel/*" \) -delete
-          find . -type d -empty -not \( -path "./archive" -o -path "./engage" -o -path "./attendance" -o -path "./paywheel" \) -delete
+          Set-Location -Path "C:\power-hcm-demo"
+          Get-ChildItem -File -Recurse | Where-Object { $_.DirectoryName -notmatch "\\(archive|engage|attendance|paywheel)\\*" } | Remove-Item -Force
+          Get-ChildItem -Directory -Recurse | Where-Object { $_.FullName -notmatch "\\(archive|engage|attendance|paywheel)\\*" -and @(Get-ChildItem -Path $_.FullName -Recurse).Count -eq 0 } | Remove-Item -Force -Recurse
