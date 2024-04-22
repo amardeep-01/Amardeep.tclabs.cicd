@@ -27,6 +27,14 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
+      - name: Install nvm
+        run: nvm use 20.12.1
+
+      - name: Install nvm
+        run: npm install -g @angular/cli@latest
+
+        
+
       - name: Install packages
         run: npm i -f
 
