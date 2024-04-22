@@ -28,7 +28,11 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Install nvm
-        run: nvm use 20.12.1
+      
+        run: |
+         nvm -v
+         nvm list
+         nvm use 20.12.1
 
       - name: Install nvm
         run: npm install -g @angular/cli@latest
