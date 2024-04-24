@@ -27,17 +27,26 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - name: Install nvm
+      # - name: Install nvm
       
-        run: |
-         nvm -v
-         nvm list
-         nvm use 20.12.1
+      #   run: |
+      #    nvm -v
+      #    nvm list
+      #    nvm use 20.12.1
 
-      - name: Install nvm
-        run: npm install -g @angular/cli@latest
+      # - name: Install nvm
+      #   run: npm install -g @angular/cli@latest
 
         
+
+      # - name: Install packages
+      #   run: npm i -f
+
+      # - name: Building project
+      #   run: ng build --base-href=/achieve/
+
+    
+ 
 
       - name: Install packages
         run: npm i -f
@@ -45,7 +54,6 @@ jobs:
       - name: Building project
         run: ng build --base-href=/achieve/
 
-     
 
   deploymentjob:
     name: Deployment Job
