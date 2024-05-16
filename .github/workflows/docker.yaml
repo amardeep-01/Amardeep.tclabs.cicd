@@ -1,0 +1,42 @@
+
+name: ACHIEVE-Service-CICD
+
+on:
+  push:
+    branches:
+      - '**' 
+    tags:   
+      - 'dev_v*'  
+      - 'uat_v*'    
+      - 'qa_v*'  
+  workflow_dispatch:
+    inputs:
+      environment:
+        type: choice
+        description: Select Environment
+        options:
+          - DEV
+          - QA
+          - UAT
+
+jobs:
+  build-and-test:
+    if: github.event_name != 'workflow_dispatch' && !startsWith(github.ref, 'refs/tags/')
+    runs-on: [ self-hosted]
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Build docker
+        run: docker build -t image1 .
+
+
+      - name: Build docker
+        run: docker save -o image1.tar image1:latest
+
+
+      - name: docker swarm run
+        run: |
+         cd "C:\Users\amardeep.kini\demo"
+         docker stack deploy -c demo.yaml demo-app
+         # docker stack update demo-app -c demo.yaml
