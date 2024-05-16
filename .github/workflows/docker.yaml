@@ -28,11 +28,11 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Build docker
-        run: docker build -t image1 .
+        run: docker build -t image2 .
 
 
       - name: Build docker
-        run: docker save -o image1.tar image1:latest
+        run: docker save -o image2.tar image1:latest
 
 
       - name: docker swarm run
