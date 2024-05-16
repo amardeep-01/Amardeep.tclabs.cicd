@@ -31,7 +31,7 @@ jobs:
 
 
       - name: Build docker
-        run: docker save -o image2.tar image1:latest
+        run: docker save -o image2.tar image2:latest
 
 
       - name: docker swarm run
