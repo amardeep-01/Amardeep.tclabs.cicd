@@ -1,9 +1,7 @@
 name: ACHIEVE-Service-CICD-docker
 
 on:
-  push:
-    branches:
-      - '**'
+  
   workflow_dispatch: 
     inputs:
       environment:
