@@ -15,7 +15,7 @@ on:
 jobs:
   build-and-deploy:
     if: github.event_name == 'workflow_dispatch'
-    runs-on: [self-hosted, qa-test]
+    runs-on: [self-hosted, q-test]
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
