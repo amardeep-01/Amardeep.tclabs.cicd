@@ -25,3 +25,11 @@ jobs:
 
       - name: Print assumed role
         run: aws sts get-caller-identity
+
+
+        
+      - name: Print S3 Bucket
+        run: aws s3 ls
+
+
+        
