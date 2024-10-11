@@ -19,7 +19,7 @@ jobs:
           role-to-assume: arn:aws:iam::637423512575:role/demo-oicd
           role-session-name: samplerolesession
           aws-region: ${{ env.AWS_REGION }}
-
+ 
       - name: Print AWS SSM Parameter
         run: aws ssm get-parameter --name=/tst/mulesoft/password --query Parameter.Value
 
