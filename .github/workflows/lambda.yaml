@@ -1,4 +1,4 @@
-name: Lambda
+name: cicd/lambda
 on:
   workflow_dispatch: null
 env:
@@ -41,7 +41,7 @@ jobs:
   deploy:
     needs: Build
     runs-on: ubuntu-latest
-    environment: Gha_poc
+    environment: tst
     steps:
       - name: Setup AWS CLI
         uses: aws-actions/configure-aws-credentials@v1
