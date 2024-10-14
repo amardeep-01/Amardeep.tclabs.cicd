@@ -1,35 +1,35 @@
-name: AWS OIDC Connect Demo
-on:
-  push
-env:
-  AWS_REGION : "us-east-1"   
-permissions:
-      id-token: write   # This is required for requesting the JWT
-      contents: read    # This is required for actions/checkout
-jobs:
-  DemoOIDC:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Git clone the repository 
-        uses: actions/checkout@v3
+# name: AWS OIDC Connect Demo
+# on:
+#   push
+# env:
+#   AWS_REGION : "us-east-1"   
+# permissions:
+#       id-token: write   # This is required for requesting the JWT
+#       contents: read    # This is required for actions/checkout
+# jobs:
+#   DemoOIDC:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Git clone the repository 
+#         uses: actions/checkout@v3
 
-      - name: configure aws credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          role-to-assume: arn:aws:iam::637423512575:role/demo-oicd
-          role-session-name: samplerolesession
-          aws-region: ${{ env.AWS_REGION }}
+#       - name: configure aws credentials
+#         uses: aws-actions/configure-aws-credentials@v1
+#         with:
+#           role-to-assume: arn:aws:iam::637423512575:role/demo-oicd
+#           role-session-name: samplerolesession
+#           aws-region: ${{ env.AWS_REGION }}
  
-      - name: Print AWS SSM Parameter
-        run: aws ssm get-parameter --name=/tst/mulesoft/password --query Parameter.Value
+#       - name: Print AWS SSM Parameter
+#         run: aws ssm get-parameter --name=/tst/mulesoft/password --query Parameter.Value
 
-      - name: Print assumed role
-        run: aws sts get-caller-identity
+#       - name: Print assumed role
+#         run: aws sts get-caller-identity
 
 
         
-      - name: Print S3 Bucket
-        run: aws s3 ls
+#       - name: Print S3 Bucket
+#         run: aws s3 ls
 
 
         
