@@ -32,6 +32,7 @@ jobs:
           latest=$( aws ecr describe-images --repository-name edt-demo  --query 'sort_by(imageDetails,& imagePushedAt)[-1].imageTags[0]' --output text)
           # incrementing the image tag by 1
           new=$(expr $latest + 1)
+          echo("New image tag is $new")
           # building the new image
           docker build -t edt-demo .
           docker tag edt-demo:latest 637423512575.dkr.ecr.us-east-1.amazonaws.com/edt-demo:$new
@@ -56,5 +57,6 @@ jobs:
           aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 407113915942.dkr.ecr.us-east-1.amazonaws.com
           echo "Ecr login is successfull"
           latest=$( aws ecr describe-images --repository-name edt-demo  --query 'sort_by(imageDetails,& imagePushedAt)[-1].imageTags[0]' --output text)
+          echo("Updated image tag is $latest")
           aws lambda update-function-code --function-name edt-demo  --image-uri 637423512575.dkr.ecr.us-east-1.amazonaws.com/edt-demo:$new:$latest
           echo "latest image is updated"
