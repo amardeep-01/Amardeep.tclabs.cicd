@@ -64,6 +64,8 @@ jobs:
 
       - name: Update Lambda environment variables Lambda
         run: |
+            dir
+            pwd
             ls
             aws lambda update-function-configuration --function-name edt-demo --environment file://tst.json
             echo "Environment updated successfull"
