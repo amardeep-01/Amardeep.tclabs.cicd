@@ -67,6 +67,7 @@ jobs:
             dir
             pwd
             ls
+            cd ..
             ls -la
             dir
             pwd
