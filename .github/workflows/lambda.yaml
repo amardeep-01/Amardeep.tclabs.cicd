@@ -67,7 +67,7 @@ jobs:
             dir
             pwd
             ls
-            cd 
+            cd Amardeep.tclabs.cicd
             dir
             pwd
             aws lambda update-function-configuration --function-name edt-demo --environment file://tst.json
