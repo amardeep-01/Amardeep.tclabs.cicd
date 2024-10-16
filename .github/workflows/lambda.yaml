@@ -67,7 +67,7 @@ jobs:
             dir
             pwd
             ls
-            cd ..
+            cd /home/runner/work/Amardeep.tclabs.cicd/Amardeep.tclabs.cicd
             ls -la
             dir
             pwd
