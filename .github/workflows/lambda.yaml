@@ -60,3 +60,71 @@ jobs:
           echo "Updated image tag is $latest"
           aws lambda update-function-code --function-name edt-demo  --image-uri 637423512575.dkr.ecr.us-east-1.amazonaws.com/edt-demo:$new:$latest
           echo "latest image is updated"
+    name: cicd/lambda
+on:
+  workflow_dispatch: null
+env:
+  ENV: tst
+  AWS_REGION : "us-east-1" 
+permissions:
+  id-token: write
+  contents: read
+jobs:
+  Build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+        with:
+          repository: amardeep-01/Amardeep.tclabs.cicd
+          fetch-depth: 2
+      - name: Setup AWS CLI
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          name: configure aws credentials
+          uses: aws-actions/configure-aws-credentials@v1
+          role-to-assume:  arn:aws:iam::637423512575:role/demo-oicd
+          role-session-name: samplerolesession
+          aws-region: ${{ env.AWS_REGION }}
+      - name: Building the Image
+        run: |
+          # getting the latest image tag
+          aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 637423512575.dkr.ecr.us-east-1.amazonaws.com
+          echo "Ecr login is successfull"
+          latest=$( aws ecr describe-images --repository-name edt-demo  --query 'sort_by(imageDetails,& imagePushedAt)[-1].imageTags[0]' --output text)
+          # incrementing the image tag by 1
+          new=$(expr $latest + 1)
+          echo "New image tag is $new"
+          # building the new image
+          docker build -t edt-demo .
+          docker tag edt-demo:latest 637423512575.dkr.ecr.us-east-1.amazonaws.com/edt-demo:$new
+          docker push 637423512575.dkr.ecr.us-east-1.amazonaws.com/edt-demo:$new
+          echo "image is pushed"
+          
+  deploy:
+    needs: Build
+    runs-on: ubuntu-latest
+    environment: tst
+    steps:
+      - name: Setup AWS CLI
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          name: configure aws credentials
+          uses: aws-actions/configure-aws-credentials@v1
+          role-to-assume:  arn:aws:iam::637423512575:role/demo-oicd
+          role-session-name: samplerolesession
+          aws-region: us-east-1
+      - name: Deploying new image on Lambda
+        run: |
+          aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 407113915942.dkr.ecr.us-east-1.amazonaws.com
+          echo "Ecr login is successfull"
+          latest=$( aws ecr describe-images --repository-name edt-demo  --query 'sort_by(imageDetails,& imagePushedAt)[-1].imageTags[0]' --output text)
+          echo "Updated image tag is $latest"
+          aws lambda update-function-code --function-name edt-demo  --image-uri 637423512575.dkr.ecr.us-east-1.amazonaws.com/edt-demo:$new:$latest
+          echo "latest image is updated"
+
+      - name: Update Lambda environment variables Lambda
+        run: |
+            ls
+            aws lambda update-function-configuration --function-name edt-demo --environment file://tst.json
+            echo "Environment updated successfull"
