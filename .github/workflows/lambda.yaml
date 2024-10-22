@@ -44,6 +44,12 @@ jobs:
     runs-on: ubuntu-latest
     environment: tst
     steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+        with:
+          repository: amardeep-01/Amardeep.tclabs.cicd
+          fetch-depth: 2
+          
       - name: Setup AWS CLI
         uses: aws-actions/configure-aws-credentials@v1
         with:
