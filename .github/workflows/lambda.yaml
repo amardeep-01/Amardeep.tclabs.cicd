@@ -1,5 +1,8 @@
 name: cicd/lambda
 on:
+  push:
+    branches:
+      - develop
   workflow_dispatch: null
 env:
   ENV: tst
